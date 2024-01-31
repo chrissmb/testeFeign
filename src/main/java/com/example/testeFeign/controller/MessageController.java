@@ -1,7 +1,8 @@
 package com.example.testeFeign.controller;
 
+import com.example.testeFeign.rest.BadsslClient;
 import com.example.testeFeign.rest.MockoonClient;
-import com.example.testeFeign.rest.config.OtherMockoonClient;
+import com.example.testeFeign.rest.OtherMockoonClient;
 import com.example.testeFeign.schema.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,9 @@ public class MessageController {
 
     @Autowired
     private OtherMockoonClient otherClient;
+
+    @Autowired
+    private BadsslClient badsslClient;
 
     @GetMapping("users")
     private List<User> getUsers(){
@@ -36,5 +40,10 @@ public class MessageController {
     @GetMapping("otherError")
     private String getOtherError(){
         return otherClient.getSomeError();
+    }
+
+    @GetMapping("badssl")
+    private String getBadsslContent() {
+        return badsslClient.getContent();
     }
 }

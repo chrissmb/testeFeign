@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(value = "mockoon", url = "${mockoonUrlBase}")
+@FeignClient(value = "mockoon", url = "${mockoon.url.base}")
 public interface MockoonClient {
 
     @GetMapping("users")

@@ -18,8 +18,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
 
         String errorMessage = null;
         try {
-//            errorMessage = String.format("method: %s - status: %s - body: %s", methodKey, response.status(), getBodyMessage(response.body().asInputStream()));
-            errorMessage = String.format("method: %s - status: %s - body: %s", methodKey, response.status(), getBodyMessage(response.body().asReader(StandardCharsets.UTF_8)));
+            errorMessage = String.format("method: %s - status: %s - body: %s", methodKey, response.status(), getResponseBodyMessage(response));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -28,10 +27,16 @@ public class CustomErrorDecoder implements ErrorDecoder {
         return new Exception(errorMessage);
     }
 
-    private String getBodyMessage(InputStream inputStream) {
+    private String getResponseBodyMessage(Response response) throws IOException {
+        InputStream inputStream = response.body().asInputStream();
         return new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
     }
-    private String getBodyMessage(Reader reader) {
-        return new BufferedReader(reader).lines().collect(Collectors.joining("\n"));
-    }
+
+//    private String getBodyMessage(InputStream inputStream) {
+//        return new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
+//    }
+//    private String getBodyMessage(Reader reader) {
+//        return new BufferedReader(reader).lines().collect(Collectors.joining("\n"));
+//    }
+
 }

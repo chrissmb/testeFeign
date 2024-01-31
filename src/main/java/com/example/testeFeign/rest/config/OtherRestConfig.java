@@ -1,6 +1,5 @@
 package com.example.testeFeign.rest.config;
 
-import com.example.testeFeign.exception.handler.CustomErrorDecoder;
 import feign.RequestInterceptor;
 import feign.Response;
 import feign.codec.ErrorDecoder;
